@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> GUESS NUMBER </title>
+	 
+</head>
+<body>
+	<div class="container">
+		<div class="box">
+			<p class="guess">	GUESS NUMBER FROM 10 TO 50. </p>
+			<p class="pla1"> Player 1 </p>
+			<p class="pla2"> Player 2 </p>
+			<p class="time1"> ATTEMPT : 0 </p>
+			<p class="time2"> ATTEMPT : 0 </p>
+			<input type="text" placeholder="Guess Number" class="input1">
+			<button onclick="GuessNumber1()"> click me </button>
+			<input type="text" placeholder="Guess Number" class="input2">
+			<button onclick="GuessNumber2()"> click me </button>
+			<p class="p1"></p>
+			<p class="p2"></p>
+			<p class="win"> </p>
+		</div>
+	</div>
+	<footer class="bg-light text-center text-dark py-3 mt-5">
+    <div class="container">
+        <p class="mb-0" style="color:#ffffff">&copy; 2024 Anurag Saran. All rights reserved.</p>
+    </div>
+</footer>
+	<style>
+	*{
+	background-color:#600080;
+	
+	}
+		.container{
+	background-color:#9966ff;
+	width:750px;
+	margin:20px auto;
+	padding:20px;
+	border-radius:30px;
+	border:2px solid black;
+}
+.box{
+	background-color:#9900cc;
+	padding:10px 20px 20px;
+	border-radius:20px;
+	border:2px solid black;
+}
+.box p{
+	color:white;
+}
+.box button{
+	font-size:16px;	
+	padding:5px 10px;
+	background-color:#ffc845;
+	color:white;
+	border-radius:30px;
+	border:2px solid #FFDE4D;
+	cursor:pointer;
+}
+.guess{
+	font-size:40px;
+	text-align:center;
+	margin-bottom:-5px;
+}
+.time1{
+	display:inline-block;
+	padding-left:50px;
+	font-size:20px;
+}
+.time2{
+	display:inline-block;
+	padding-left:315px;
+	font-size:20px;
+}
+.input1{
+	font-size:16px;
+	padding:5px 0px;
+	display:inline-block;
+	border:2px solid #9966ff;
+	border-radius:30px;
+	text-align:center;
+}
+.input2{
+	font-size:16px;
+	padding:5px 0px;
+	text-align:center;
+	display:inline-block;
+	border:2px solid#9966ff;
+	border-radius:30px;
+	margin-left:130px;
+}
+.p1{
+	font-size:20px;
+	display:inline-block;
+	padding-left:60px;
+}
+.p2{
+	font-size:20px;
+	display:inline-block;
+	padding-left:310px;
+}
+.pla1{
+	display:inline-block;
+	padding-left:60px;
+	font-size:30px;
+	margin-bottom:-10px;
+	text-decoration:underline;
+}
+.pla2{
+	display:inline-block;
+	padding-left:330px;
+	font-size:30px;
+	margin-bottom:-10px;
+	text-decoration:underline;
+}
+.win{
+	font-size:40px;
+	text-align:center;
+}
+</style>
+<script> 
+	let input1 = document.querySelector('.input1');
+	let input2 = document.querySelector('.input2');
+	let timeP1 = document.querySelector('.time1');
+	let timeP2 = document.querySelector('.time2');
+	let winP = document.querySelector('.win');
+	let p1 = document.querySelector('.p1');
+	let p2 = document.querySelector('.p2');
+	let GuessNum;
+	let time1 = 0;
+	let time2 = 0;
+
+	function startGame()
+	{
+		let p = document.querySelector('.guess');
+		let max = 100;
+		let min = 50;
+		let num1 = Math.round(Math.random() * 50);
+		let num2 = Math.round(Math.random() * (max - min) + min);
+		GuessNum = Math.round(Math.random() * (num2 - num1) + num1);
+		
+		p.innerHTML = 'GUESS NUMBER FROM ' + num1 + ' TO ' + num2 + '.';
+	}
+
+	function GuessNumber1()
+	{
+		if(input1.value == "")
+			alert('Please Enter Guess Number');
+		else if(input1.value < GuessNum)
+			p1.innerHTML = 'Think Higher!';
+		else if(input1.value > GuessNum)
+			p1.innerHTML = 'Think Lower!';
+		else 
+		{
+			winP.innerHTML = 'Winner Player 1!';
+			p1.innerHTML = "";
+			p2.innerHTML = "";
+		}
+
+		time1++;
+		timeP1.innerHTML = 'ATTEMPT : ' + time1;	
+		input1.value = "";
+		
+	}
+
+	function GuessNumber2()
+	{
+		if(input2.value == "")
+			alert('Please Enter Guess Number');
+		else if(input2.value < GuessNum)
+			p2.innerHTML = 'Think Higher!';
+		else if(input2.value > GuessNum)
+			p2.innerHTML = 'Think Lower!';
+		else 
+		{
+			winP.innerHTML = 'Winner Player 2!';
+			p2.innerHTML = "";	
+			p1.innerHTML = "";	
+		}
+
+		time2++;
+		timeP2.innerHTML = 'ATTEMPT : ' + time2;
+		input2.value = "";	
+	}
+
+	startGame();
+</script>
+</body>
+</html>
