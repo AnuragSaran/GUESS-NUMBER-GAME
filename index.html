@@ -1,189 +1,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> GUESS NUMBER </title>
-	 
+    <title>GUESS NUMBER</title>
 </head>
 <body>
-	<div class="container">
-		<div class="box">
-			<p class="guess">	GUESS NUMBER FROM 10 TO 50. </p>
-			<p class="pla1"> Player 1 </p>
-			<p class="pla2"> Player 2 </p>
-			<p class="time1"> ATTEMPT : 0 </p>
-			<p class="time2"> ATTEMPT : 0 </p>
-			<input type="text" placeholder="Guess Number" class="input1">
-			<button onclick="GuessNumber1()"> click me </button>
-			<input type="text" placeholder="Guess Number" class="input2">
-			<button onclick="GuessNumber2()"> click me </button>
-			<p class="p1"></p>
-			<p class="p2"></p>
-			<p class="win"> </p>
-		</div>
-	</div>
-	<footer class="bg-light text-center text-dark py-3 mt-5">
     <div class="container">
-        <p class="mb-0" style="color:#ffffff">&copy; 2024 Anurag Saran. All rights reserved.</p>
+        <div class="box">
+            <p class="guess">GUESS NUMBER FROM 10 TO 50.</p>
+            <p class="pla1"> Player 1 </p>
+            <p class="pla2"> Player 2 </p>
+            <p class="time1"> ATTEMPT : 0 </p>
+            <p class="time2"> ATTEMPT : 0 </p>
+            <input type="text" placeholder="Guess Number" class="input1">
+            <button onclick="GuessNumber1()" class="btn1">Click Me</button>
+            <input type="text" placeholder="Guess Number" class="input2" disabled>
+            <button onclick="GuessNumber2()" class="btn2" disabled>Click Me</button>
+            <p class="p1"></p>
+            <p class="p2"></p>
+            <p class="win"></p>
+            <button onclick="startGame()" class="reset-btn">Restart Game</button>
+        </div>
     </div>
-</footer>
-	<style>
-	*{
-	background-color:#600080;
-	
-	}
-		.container{
-	background-color:#9966ff;
-	width:750px;
-	margin:20px auto;
-	padding:20px;
-	border-radius:30px;
-	border:2px solid black;
-}
-.box{
-	background-color:#9900cc;
-	padding:10px 20px 20px;
-	border-radius:20px;
-	border:2px solid black;
-}
-.box p{
-	color:white;
-}
-.box button{
-	font-size:16px;	
-	padding:5px 10px;
-	background-color:#ffc845;
-	color:white;
-	border-radius:30px;
-	border:2px solid #FFDE4D;
-	cursor:pointer;
-}
-.guess{
-	font-size:40px;
-	text-align:center;
-	margin-bottom:-5px;
-}
-.time1{
-	display:inline-block;
-	padding-left:50px;
-	font-size:20px;
-}
-.time2{
-	display:inline-block;
-	padding-left:315px;
-	font-size:20px;
-}
-.input1{
-	font-size:16px;
-	padding:5px 0px;
-	display:inline-block;
-	border:2px solid #9966ff;
-	border-radius:30px;
-	text-align:center;
-}
-.input2{
-	font-size:16px;
-	padding:5px 0px;
-	text-align:center;
-	display:inline-block;
-	border:2px solid#9966ff;
-	border-radius:30px;
-	margin-left:130px;
-}
-.p1{
-	font-size:20px;
-	display:inline-block;
-	padding-left:60px;
-}
-.p2{
-	font-size:20px;
-	display:inline-block;
-	padding-left:310px;
-}
-.pla1{
-	display:inline-block;
-	padding-left:60px;
-	font-size:30px;
-	margin-bottom:-10px;
-	text-decoration:underline;
-}
-.pla2{
-	display:inline-block;
-	padding-left:330px;
-	font-size:30px;
-	margin-bottom:-10px;
-	text-decoration:underline;
-}
-.win{
-	font-size:40px;
-	text-align:center;
-}
-</style>
-<script> 
-	let input1 = document.querySelector('.input1');
-	let input2 = document.querySelector('.input2');
-	let timeP1 = document.querySelector('.time1');
-	let timeP2 = document.querySelector('.time2');
-	let winP = document.querySelector('.win');
-	let p1 = document.querySelector('.p1');
-	let p2 = document.querySelector('.p2');
-	let GuessNum;
-	let time1 = 0;
-	let time2 = 0;
+    
+    <style>
+        * { background-color: #600080; }
+        .container {
+            background-color: #9966ff;
+            width: 750px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 30px;
+            border: 2px solid black;
+            text-align: center;
+        }
+        .box {
+            background-color: #9900cc;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid black;
+        }
+        .box p { color: white; }
+        .box button {
+            font-size: 16px;
+            padding: 5px 10px;
+            background-color: #ffc845;
+            color: white;
+            border-radius: 30px;
+            border: 2px solid #FFDE4D;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .guess { font-size: 30px; margin-bottom: 10px; }
+        .win { font-size: 35px; font-weight: bold; color: yellow; }
+        .reset-btn { background-color: red; display: none; }
+        .highlight { color: #ffcc00; font-size: 40px; }
+		    .box input {
+        font-size: 18px;
+        padding: 10px;
+        width: 150px;
+        text-align: center;
+        background-color: #d9b3ff; /* Light Purple */
+        border: 2px solid black;
+        border-radius: 10px; /* Rounded Corners */
+        outline: none;
+        transition: 0.3s;
+    }
 
-	function startGame()
-	{
-		let p = document.querySelector('.guess');
-		let max = 100;
-		let min = 50;
-		let num1 = Math.round(Math.random() * 50);
-		let num2 = Math.round(Math.random() * (max - min) + min);
-		GuessNum = Math.round(Math.random() * (num2 - num1) + num1);
-		
-		p.innerHTML = 'GUESS NUMBER FROM ' + num1 + ' TO ' + num2 + '.';
-	}
+    .box input:focus {
+        border-color: #ffcc00; /* Highlight Border on Focus */
+        box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+    }
 
-	function GuessNumber1()
-	{
-		if(input1.value == "")
-			alert('Please Enter Guess Number');
-		else if(input1.value < GuessNum)
-			p1.innerHTML = 'Think Higher!';
-		else if(input1.value > GuessNum)
-			p1.innerHTML = 'Think Lower!';
-		else 
-		{
-			winP.innerHTML = 'Winner Player 1!';
-			p1.innerHTML = "";
-			p2.innerHTML = "";
-		}
+    .input1 {
+        margin-right: 20px;
+    }
 
-		time1++;
-		timeP1.innerHTML = 'ATTEMPT : ' + time1;	
-		input1.value = "";
-		
-	}
+    .input2 {
+        margin-left: 20px;
+    }
 
-	function GuessNumber2()
-	{
-		if(input2.value == "")
-			alert('Please Enter Guess Number');
-		else if(input2.value < GuessNum)
-			p2.innerHTML = 'Think Higher!';
-		else if(input2.value > GuessNum)
-			p2.innerHTML = 'Think Lower!';
-		else 
-		{
-			winP.innerHTML = 'Winner Player 2!';
-			p2.innerHTML = "";	
-			p1.innerHTML = "";	
-		}
+    </style>
 
-		time2++;
-		timeP2.innerHTML = 'ATTEMPT : ' + time2;
-		input2.value = "";	
-	}
+    <script> 
+        let input1 = document.querySelector('.input1');
+        let input2 = document.querySelector('.input2');
+        let timeP1 = document.querySelector('.time1');
+        let timeP2 = document.querySelector('.time2');
+        let winP = document.querySelector('.win');
+        let p1 = document.querySelector('.p1');
+        let p2 = document.querySelector('.p2');
+        let btn1 = document.querySelector('.btn1');
+        let btn2 = document.querySelector('.btn2');
+        let resetBtn = document.querySelector('.reset-btn');
 
-	startGame();
-</script>
+        let GuessNum;
+        let time1 = 0;
+        let time2 = 0;
+
+        function startGame() {
+            let p = document.querySelector('.guess');
+            let num1 = 10, num2 = 50; // Fixed Range
+            GuessNum = Math.floor(Math.random() * (num2 - num1 + 1)) + num1;
+
+            p.innerHTML = `GUESS NUMBER FROM ${num1} TO ${num2}.`;
+            winP.innerHTML = "";
+            time1 = 0;
+            time2 = 0;
+            timeP1.innerHTML = 'ATTEMPT : 0';
+            timeP2.innerHTML = 'ATTEMPT : 0';
+            p1.innerHTML = "";
+            p2.innerHTML = "";
+            input1.value = "";
+            input2.value = "";
+            input1.disabled = false;
+            input2.disabled = true;  // Player 2 initially disabled
+            btn1.disabled = false;
+            btn2.disabled = true;  // Player 2 initially disabled
+            resetBtn.style.display = "none";
+        }
+
+        function GuessNumber1() {
+            if (input1.value === "") {
+                alert('Please Enter Guess Number');
+                return;
+            }
+
+            let guess = parseInt(input1.value);
+            time1++;
+            timeP1.innerHTML = 'ATTEMPT : ' + time1;
+
+            if (guess < GuessNum) p1.innerHTML = 'Think Higher!';
+            else if (guess > GuessNum) p1.innerHTML = 'Think Lower!';
+            else {
+                winP.innerHTML = 'Winner: <span class="highlight">Player 1</span> 🎉';
+                endGame();
+                return;
+            }
+
+            // Player 1's turn over, now Player 2's turn
+            input1.disabled = true;
+            input2.disabled = false;
+            btn1.disabled = true;
+            btn2.disabled = false;
+
+            input1.value = "";
+        }
+
+        function GuessNumber2() {
+            if (input2.value === "") {
+                alert('Please Enter Guess Number');
+                return;
+            }
+
+            let guess = parseInt(input2.value);
+            time2++;
+            timeP2.innerHTML = 'ATTEMPT : ' + time2;
+
+            if (guess < GuessNum) p2.innerHTML = 'Think Higher!';
+            else if (guess > GuessNum) p2.innerHTML = 'Think Lower!';
+            else {
+                winP.innerHTML = 'Winner: <span class="highlight">Player 2</span> 🎉';
+                endGame();
+                return;
+            }
+
+            // Player 2's turn over, now Player 1's turn
+            input1.disabled = false;
+            input2.disabled = true;
+            btn1.disabled = false;
+            btn2.disabled = true;
+
+            input2.value = "";
+        }
+
+        function endGame() {
+            input1.disabled = true;
+            input2.disabled = true;
+            btn1.disabled = true;
+            btn2.disabled = true;
+            resetBtn.style.display = "block";
+        }
+
+        startGame();
+    </script>
 </body>
 </html>
